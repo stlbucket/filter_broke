@@ -1,0 +1,11 @@
+{
+  "name": "pg-info-schema",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4",
+    "postgraphile": "^4.3.3",
+    "postgraphile-plugin-connection-filter": "^1.0.0-beta.28"
+  }
+}

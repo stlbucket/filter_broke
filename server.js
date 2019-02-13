@@ -1,0 +1,44 @@
+require('./.env')
+const express = require("express");
+const path = require("path")
+const {postgraphile} = require("postgraphile");
+
+const ConnectionFilterPlugin = require("postgraphile-plugin-connection-filter");
+// const plugins = [
+//   require('postgraphile-plugin-connection-filter')
+// ]
+
+const connection = process.env.POSTGRES_CONNECTION
+const pgdbiPort = process.env.PGDBI_PORT || 6099
+const schemas = [ 'information_schema' ] //[ 'pde' ]
+const disableDefaultMutations = false
+const watchPg = false //process.env.WATCH_PG === 'true'
+
+const app = express();
+
+app.use(express.static(path.join(`${__dirname}`, `dist`)))
+
+app.get('/', (req, res) => {
+  res.redirect(`/dist/index.html`)
+})
+
+app.use(postgraphile(
+  connection
+  ,schemas
+  ,{
+    dynamicJson: true
+    ,enableCors: true
+    ,showErrorStack: true
+    ,extendedErrors: ['severity', 'code', 'detail', 'hint', 'positon', 'internalPosition', 'internalQuery', 'where', 'schema', 'table', 'column', 'dataType', 'constraint', 'file', 'line', 'routine']
+    ,disableDefaultMutations: disableDefaultMutations
+    ,appendPlugins: [ConnectionFilterPlugin]
+    ,watchPg: watchPg
+    ,graphiql: true
+    ,enhanceGraphiql: true
+  }
+));
+
+app.listen(pgdbiPort)
+
+console.log(`pg-db-inspector listening on ${pgdbiPort}`)
+
