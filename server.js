@@ -4,15 +4,12 @@ const path = require("path")
 const {postgraphile} = require("postgraphile");
 
 const ConnectionFilterPlugin = require("postgraphile-plugin-connection-filter");
-// const plugins = [
-//   require('postgraphile-plugin-connection-filter')
-// ]
 
 const connection = process.env.POSTGRES_CONNECTION
 const pgdbiPort = process.env.PGDBI_PORT || 6099
-const schemas = [ 'information_schema' ] //[ 'pde' ]
+const schemas = [ 'information_schema' ]
 const disableDefaultMutations = false
-const watchPg = false //process.env.WATCH_PG === 'true'
+const watchPg = false
 
 const app = express();
 
@@ -40,5 +37,5 @@ app.use(postgraphile(
 
 app.listen(pgdbiPort)
 
-console.log(`pg-db-inspector listening on ${pgdbiPort}`)
+console.log(`listening on ${pgdbiPort}`)
 
