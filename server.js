@@ -1,6 +1,5 @@
 require('./.env')
 const express = require("express");
-const path = require("path")
 const {postgraphile} = require("postgraphile");
 
 const ConnectionFilterPlugin = require("postgraphile-plugin-connection-filter");
@@ -12,12 +11,6 @@ const disableDefaultMutations = false
 const watchPg = false
 
 const app = express();
-
-app.use(express.static(path.join(`${__dirname}`, `dist`)))
-
-app.get('/', (req, res) => {
-  res.redirect(`/dist/index.html`)
-})
 
 app.use(postgraphile(
   connection
