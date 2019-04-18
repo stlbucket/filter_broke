@@ -6,6 +6,7 @@
   "dependencies": {
     "express": "^4.16.4",
     "postgraphile": "^4.3.3",
+    "postgraphile-db-inspector-extension": "^1.0.9-alpha.33",
     "postgraphile-plugin-connection-filter": "^1.0.0-beta.28"
   }
 }
